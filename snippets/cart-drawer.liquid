@@ -124,12 +124,8 @@
 
     >
 
-<textarea data-ajax-cart-property-input
-    name="note"
-    form="my-ajax-cart-form"
-    id="cartNote">
-    {{ cart.note }}
-  </textarea>
+<textarea id="customer-information" name="attributes[Customer Information]">{{ cart.attributes["Customer Information"] }}</textarea>
+
                       <tr id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="cart-item" role="row">
                         <td class="cart-item__media" role="cell" headers="CartDrawer-ColumnProductImage">
                           {% if item.image %}
