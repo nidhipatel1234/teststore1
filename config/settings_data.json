@@ -1,5 +1,15 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
+    "logo": "shopify://shop_images/Logo_1.png",
     "logo_width": 90,
     "type_header_font": "assistant_n4",
     "heading_scale": 100,
@@ -97,7 +107,7 @@
     "sale_badge_color_scheme": "accent-2",
     "sold_out_badge_color_scheme": "inverse",
     "brand_headline": "",
-    "brand_description": "<p><\/p>",
+    "brand_description": "<p></p>",
     "brand_image_width": 100,
     "social_facebook_link": "",
     "social_instagram_link": "",
@@ -116,7 +126,7 @@
     "show_vendor": false,
     "show_cart_note": false,
     "cart_drawer_collection": "",
-    "checkout_header_image": "shopify:\/\/shop_images\/Logo_1.png",
+    "checkout_header_image": "shopify://shop_images/Logo_1.png",
     "checkout_layout": "threepage",
     "mlvedaACS_autoSwitch": false,
     "mlvedaACS_isCustomized": true,
@@ -159,24 +169,20 @@
         }
       }
     },
-    "content_for_index": [
-
-    ],
+    "content_for_index": [],
     "blocks": {
       "15659862187755629035": {
-        "type": "shopify:\/\/apps\/bookeasy\/blocks\/app-embed\/865cd10f-9515-4d8b-8e41-efece9c83f71",
+        "type": "shopify://apps/bookeasy/blocks/app-embed/865cd10f-9515-4d8b-8e41-efece9c83f71",
         "disabled": true,
-        "settings": {
-        }
+        "settings": {}
       },
       "3886181796285292942": {
-        "type": "shopify:\/\/apps\/cowlendar-booking\/blocks\/app-embed\/6d8b8f6a-9b3c-42b8-b2e6-a758c38d45bf",
+        "type": "shopify://apps/cowlendar-booking/blocks/app-embed/6d8b8f6a-9b3c-42b8-b2e6-a758c38d45bf",
         "disabled": true,
-        "settings": {
-        }
+        "settings": {}
       },
       "16250556887416161327": {
-        "type": "shopify:\/\/apps\/easy-appointment-booking\/blocks\/select_time\/cc7b690c-65b5-4bb4-a46c-1e4bd73e1c12",
+        "type": "shopify://apps/easy-appointment-booking/blocks/select_time/cc7b690c-65b5-4bb4-a46c-1e4bd73e1c12",
         "disabled": true,
         "settings": {
           "buttonTextAlign": "center",
@@ -185,10 +191,9 @@
         }
       },
       "6744518860797519131": {
-        "type": "shopify:\/\/apps\/etranslate-translate\/blocks\/floating-selector\/35c05b0e-4f05-4fc9-adc7-77b6ccb6b2ca",
+        "type": "shopify://apps/etranslate-translate/blocks/floating-selector/35c05b0e-4f05-4fc9-adc7-77b6ccb6b2ca",
         "disabled": false,
-        "settings": {
-        }
+        "settings": {}
       }
     },
     "color_schemes": {
@@ -432,7 +437,7 @@
       "card_style": "standard",
       "variant_pills_shadow_vertical_offset": 4,
       "variant_pills_shadow_blur": 5,
-      "brand_description": "<p><\/p>",
+      "brand_description": "<p></p>",
       "brand_image_width": 100,
       "inputs_shadow_horizontal_offset": 0,
       "text_boxes_border_opacity": 10,
