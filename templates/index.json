@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -14,7 +23,7 @@
           "type": "buttons",
           "settings": {
             "button_label_1": "Shop all",
-            "button_link_1": "shopify:\/\/collections\/all",
+            "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
             "button_link_2": "",
@@ -73,7 +82,7 @@
         "heading": "Video",
         "heading_size": "h1",
         "enable_video_looping": false,
-        "video": "shopify:\/\/files\/videos\/4004f55d4e454b0e975f60597842a347.mp4",
+        "video": "shopify://files/videos/4004f55d4e454b0e975f60597842a347.mp4",
         "video_url": "",
         "description": "",
         "full_width": false,
@@ -88,7 +97,7 @@
         "heading": "Video",
         "heading_size": "h1",
         "enable_video_looping": false,
-        "video_url": "https:\/\/youtu.be\/ombOSRogBas?si=1zPCBkpwKlD27LfF",
+        "video_url": "https://youtu.be/ombOSRogBas?si=1zPCBkpwKlD27LfF",
         "description": "",
         "full_width": false,
         "color_scheme": "",
@@ -100,7 +109,7 @@
       "type": "apps",
       "blocks": {
         "4a31a3de-ced8-49e6-8755-607e24ca444d": {
-          "type": "shopify:\/\/apps\/carti-appointment-scheduler\/blocks\/app-embed-section\/2db56f6b-833e-433d-a463-4b8e1664b9c4",
+          "type": "shopify://apps/carti-appointment-scheduler/blocks/app-embed-section/2db56f6b-833e-433d-a463-4b8e1664b9c4",
           "disabled": true,
           "settings": {
             "footer_linklist_title": "Quick links",
@@ -117,6 +126,24 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "1739967039b21bfa0f": {
+      "type": "apps",
+      "blocks": {
+        "sk_advanced_form_builder_form_jnrMzD": {
+          "type": "shopify://apps/sk-advanced-form-builder/blocks/form/f3e35b58-5874-4ef2-8e03-c92cda6e49eb",
+          "settings": {
+            "show_form": true,
+            "form_token": "55686762566b7469"
+          }
+        }
+      },
+      "block_order": [
+        "sk_advanced_form_builder_form_jnrMzD"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
@@ -124,6 +151,7 @@
     "featured_collection",
     "b6e027b5-23c3-41f2-9ebc-bd6cad4de1b6",
     "a7f206f4-5565-444f-83c2-bd04b2549746",
-    "17048913346848ff95"
+    "17048913346848ff95",
+    "1739967039b21bfa0f"
   ]
 }
