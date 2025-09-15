@@ -184,11 +184,7 @@
       "16250556887416161327": {
         "type": "shopify://apps/easy-appointment-booking/blocks/select_time/cc7b690c-65b5-4bb4-a46c-1e4bd73e1c12",
         "disabled": true,
-        "settings": {
-          "buttonTextAlign": "center",
-          "classNames": "button",
-          "buttonWidth": 100
-        }
+        "settings": {}
       },
       "6744518860797519131": {
         "type": "shopify://apps/etranslate-translate/blocks/floating-selector/35c05b0e-4f05-4fc9-adc7-77b6ccb6b2ca",
@@ -202,6 +198,11 @@
       },
       "11212335281082087862": {
         "type": "shopify://apps/sk-advanced-form-builder/blocks/app/f3e35b58-5874-4ef2-8e03-c92cda6e49eb",
+        "disabled": false,
+        "settings": {}
+      },
+      "pagefly-page-builder": {
+        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
         "disabled": false,
         "settings": {}
       }
