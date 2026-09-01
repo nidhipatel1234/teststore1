@@ -1,208 +1,124 @@
-{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Client Services — CONTACT page (route: /pages/contact_us).
+  Uses Shopify's native {% form 'contact' %} (real email delivery — no fake submit).
+  Heading/description/subjects/WhatsApp/phones/email/address are section settings.
+{%- endcomment -%}
 
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
+{%- liquid
+  assign subjects = section.settings.contact_subjects | newline_to_br | split: '<br />'
+-%}
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
+{%- capture cs_panel -%}
+  <div class="blk nofilter">
+    <h2>{{ section.settings.contact_heading | default: 'Contact Us' | escape }}</h2>
+    {%- if section.settings.contact_intro != blank -%}<p>{{ section.settings.contact_intro }}</p>{%- endif -%}
+    <div class="cgrid">
+      {%- comment -%} id: 'contact_form' → action becomes /contact#contact_form (EN) and /ar/contact#contact_form (AR, Shopify localises the path). {%- endcomment -%}
+      {%- form 'contact', id: 'contact_form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="fmsg" data-posted="1">Thank you — we reply within 24–48 hours.</p>
+        {%- elsif form.errors -%}
+          <p class="fmsg err" data-posted="0">{{ form.errors | default_errors }}</p>
+        {%- endif -%}
+        <div class="row2">
+          <div class="fld"><label for="cs-nm">Name</label><input id="cs-nm" name="contact[name]" type="text" required {% if customer %}value="{{ customer.name }}"{% endif %}></div>
+          <div class="fld"><label for="cs-em">Email</label><input id="cs-em" name="contact[email]" type="email" required {% if customer %}value="{{ customer.email }}"{% endif %}></div>
+        </div>
+        <div class="row2">
+          <div class="fld"><label for="cs-order">Order number</label><input id="cs-order" name="contact[order number]" type="text" required {% if customer %}value="{{ customer.ordernumber }}"{% endif %}></div>
+          <div class="fld">
+            <label for="cs-reason">What can we help with?</label>
+            <select id="cs-reason" name="contact[Reason]">
+              <option value="">Select a subject…</option>
+              {%- for s in subjects -%}{%- assign st = s | strip -%}{%- if st != blank -%}<option value="{{ st | escape }}">{{ st }}</option>{%- endif -%}{%- endfor -%}
+            </select>
+          </div>
+        </div>
+        <div class="fld">
+          <label for="cs-country">Country</label>
+          <select id="cs-country" name="contact[country]" data-cs-country required>
+            <option value="">Select a country…</option>
+            {{ country_option_tags | remove: '<option value="---" data-provinces="[]">---</option>' }}
+          </select>
+          <div class="cs-india-note" style="display:none"><b>Note:</b> We don’t sell in India. Please check <a href="https://minimalist.ae/">minimalist.ae</a>.</div>
+        </div>
+        <div class="fld"><label for="cs-ms">Message</label><textarea id="cs-ms" name="contact[body]" required></textarea></div>
+        <input type="hidden" data-cs-ip name="contact[Ip Address]" value="">
+        <button class="btn" type="submit">Send message</button>
+      {%- endform -%}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="contact page-width page-width--narrow section-{{ section.id }}-padding">
-    {%- if section.settings.heading != blank -%}
-      <h2 class="title title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-        {{ section.settings.heading }}
-      </h2>
-    {%- else -%}
-      <h2 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h2>
-    {%- endif -%}
-    {%- liquid
-      assign contact_form_class = 'isolate'
-      if settings.animations_reveal_on_scroll
-        assign contact_form_class = 'isolate scroll-trigger animate--slide-in'
-      endif
-    -%}
-    {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
-      {%- if form.posted_successfully? -%}
-        <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
-          {% render 'icon-success' %}
-          {{ 'templates.contact.form.post_success' | t }}
-        </h2>
-      {%- elsif form.errors -%}
-        <div class="form__message">
-          <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
-            {% render 'icon-error' %}
-            {{ 'templates.contact.form.error_heading' | t }}
-          </h2>
+      <aside class="cside">
+        <div class="cs-in">
+          <div>
+            <h4>{{ section.settings.cside_chat_title | default: 'Chat with us' | escape }}</h4>
+            <ul>
+              <li><a class="wa" href="{{ section.settings.whatsapp_url | default: 'https://api.whatsapp.com/send?phone=971585675555' }}"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5z"/><path d="M8.6 9.2c.3 2.6 3.6 5.9 6.2 6.2l1-1.4 2 1-1 1.6c-3.6.4-8.6-4.6-8.2-8.2l1.6-1 1 2z"/></svg>{{ section.settings.whatsapp_label | default: 'WhatsApp' }}</a></li>
+              {%- if section.settings.whatsapp_number != blank -%}<li><a href="{{ section.settings.whatsapp_url | default: 'https://api.whatsapp.com/send?phone=971585675555' }}">{{ section.settings.whatsapp_number }}</a></li>{%- endif -%}
+            </ul>
+          </div>
+          <div>
+            <h4>{{ section.settings.cside_call_title | default: 'Call us' | escape }}</h4>
+            <ul>
+              {%- if section.settings.phone1 != blank -%}<li><a href="tel:{{ section.settings.phone1 | remove: ' ' }}">{{ section.settings.phone1 }}</a></li>{%- endif -%}
+              {%- if section.settings.phone2 != blank -%}<li><a href="tel:{{ section.settings.phone2 | remove: ' ' }}">{{ section.settings.phone2 }}</a></li>{%- endif -%}
+            </ul>
+          </div>
+          <div>
+            <h4>{{ section.settings.cside_email_title | default: 'Email' | escape }}</h4>
+            {%- if section.settings.email != blank -%}<ul><li><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></li></ul>{%- endif -%}
+          </div>
+          <div>
+            <h4>{{ section.settings.cside_post_title | default: 'Post' | escape }}</h4>
+            <ul><li>{{ section.settings.post_address | default: 'PO Box 83619, Dubai, UAE' | newline_to_br }}</li></ul>
+          </div>
         </div>
-        <ul class="form-status-list caption-large" role="list">
-          <li>
-            <a href="#ContactForm-email" class="link">
-              {{ form.errors.translated_fields.email | capitalize }}
-              {{ form.errors.messages.email }}
-            </a>
-          </li>
-        </ul>
-      {%- endif -%}
-      <div class="contact__fields">
-        <div class="field">
-          <input
-            class="field__input"
-            autocomplete="name"
-            type="text"
-            id="ContactForm-name"
-            name="contact[{{ 'templates.contact.form.name' | t }}]"
-            value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
-            placeholder="{{ 'templates.contact.form.name' | t }}"
-          >
-          <label class="field__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
-        </div>
-        <div class="field field--with-error">
-          <input
-            autocomplete="email"
-            type="email"
-            id="ContactForm-email"
-            class="field__input"
-            name="contact[email]"
-            spellcheck="false"
-            autocapitalize="off"
-            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
-            aria-required="true"
-            {% if form.errors contains 'email' %}
-              aria-invalid="true"
-              aria-describedby="ContactForm-email-error"
-            {% endif %}
-            placeholder="{{ 'templates.contact.form.email' | t }}"
-          >
-          <label class="field__label" for="ContactForm-email">
-            {{- 'templates.contact.form.email' | t }}
-            <span aria-hidden="true">*</span></label
-          >
-          {%- if form.errors contains 'email' -%}
-            <small class="contact__field-error" id="ContactForm-email-error">
-              <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
-              <span class="form__message">
-                {%- render 'icon-error' -%}
-                {{- form.errors.translated_fields.email | capitalize }}
-                {{ form.errors.messages.email -}}
-              </span>
-            </small>
-          {%- endif -%}
-        </div>
-      </div>
-      <div class="field">
-        <input
-          type="tel"
-          id="ContactForm-phone"
-          class="field__input"
-          autocomplete="tel"
-          name="contact[{{ 'templates.contact.form.phone' | t }}]"
-          pattern="[0-9\-]*"
-          value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
-          placeholder="{{ 'templates.contact.form.phone' | t }}"
-        >
-        <label class="field__label" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
-      </div>
-      <div class="field">
-        <textarea
-          rows="10"
-          id="ContactForm-body"
-          class="text-area field__input"
-          name="contact[{{ 'templates.contact.form.comment' | t }}]"
-          placeholder="{{ 'templates.contact.form.comment' | t }}"
-        >
-          {{- form.body -}}
-        </textarea>
-        <label class="form__label field__label" for="ContactForm-body">
-          {{- 'templates.contact.form.comment' | t -}}
-        </label>
-      </div>
-      <div class="contact__button">
-        <button type="submit" class="button">
-          {{ 'templates.contact.form.send' | t }}
-        </button>
-      </div>
-    {%- endform -%}
+      </aside>
+    </div>
   </div>
-</div>
+{%- endcapture -%}
+
+{%- render 'client-services-header',
+    active: 'contact',
+    panel: cs_panel,
+    eyebrow: section.settings.head_eyebrow,
+    title: section.settings.head_title,
+    subheading: section.settings.head_subheading,
+    placeholder: section.settings.search_placeholder,
+    track_text: section.settings.track_text,
+    track_label: section.settings.track_link_label,
+    track_url: section.settings.track_url
+-%}
 
 {% schema %}
 {
-  "name": "t:sections.contact-form.name",
-  "tag": "section",
-  "class": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
+  "name": "Client Svc — Contact",
   "settings": [
-    {
-      "type": "inline_richtext",
-      "id": "heading",
-      "default": "Contact form",
-      "label": "Heading"
-    },
-    {
-      "type": "select",
-      "id": "heading_size",
-      "options": [
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_size.options__1.label"
-        },
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_size.options__2.label"
-        },
-        {
-          "value": "h0",
-          "label": "t:sections.all.heading_size.options__3.label"
-        }
-      ],
-      "default": "h1",
-      "label": "t:sections.all.heading_size.label"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "background-1"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
-    }
+    { "type": "paragraph", "content": "Contact page (assign to /pages/contact_us). Uses Shopify’s native contact form — submissions email the store. Sidebar details are below." },
+    { "type": "header", "content": "Shared header" },
+    { "type": "text", "id": "head_eyebrow", "label": "Eyebrow", "default": "Client Services" },
+    { "type": "text", "id": "head_title", "label": "Title", "default": "How can we help?" },
+    { "type": "text", "id": "head_subheading", "label": "Subheading", "default": "Shipping, returns, answers and contact — all in one place." },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search help articles…" },
+    { "type": "text", "id": "track_text", "label": "Track — lead-in text", "default": "Already ordered?" },
+    { "type": "text", "id": "track_link_label", "label": "Track — link label", "default": "Track your order" },
+    { "type": "url", "id": "track_url", "label": "Track — link URL" },
+    { "type": "header", "content": "Contact tab" },
+    { "type": "text", "id": "contact_heading", "label": "Heading", "default": "Contact Us" },
+    { "type": "text", "id": "contact_intro", "label": "Intro text", "default": "We’re here to answer any question you may have — we reply within 24–48 hours." },
+    { "type": "textarea", "id": "contact_subjects", "label": "Form subjects", "info": "One per line — populates the “What can we help with?” dropdown.", "default": "Where’s my order?\nReturns\nCancel or edit order\nPersonalisation\nMarketing & PR\nOther" },
+    { "type": "header", "content": "Contact details (sidebar)" },
+    { "type": "text", "id": "cside_chat_title", "label": "Chat title", "default": "Chat with us" },
+    { "type": "text", "id": "whatsapp_label", "label": "WhatsApp label", "default": "WhatsApp" },
+    { "type": "text", "id": "whatsapp_number", "label": "WhatsApp number", "default": "+971 58 567 5555" },
+    { "type": "url", "id": "whatsapp_url", "label": "WhatsApp link URL" },
+    { "type": "text", "id": "cside_call_title", "label": "Call title", "default": "Call us" },
+    { "type": "text", "id": "phone1", "label": "Phone 1", "default": "+971 58 567 5555" },
+    { "type": "text", "id": "phone2", "label": "Phone 2", "default": "+971 4 225 2721" },
+    { "type": "text", "id": "cside_email_title", "label": "Email title", "default": "Email" },
+    { "type": "text", "id": "email", "label": "Email address", "default": "support@minimalist.ae" },
+    { "type": "text", "id": "cside_post_title", "label": "Post title", "default": "Post" },
+    { "type": "textarea", "id": "post_address", "label": "Postal address", "default": "PO Box 83619,\nDubai, UAE" }
   ],
-  "presets": [
-    {
-      "name": "t:sections.contact-form.presets.name"
-    }
-  ]
+  "presets": [ { "name": "Client Svc — Contact" } ]
 }
 {% endschema %}
