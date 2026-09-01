@@ -17,14 +17,36 @@
         "padding_bottom": 36
       }
     },
-    "form": {
+    "contact_form_RYzLcW": {
       "type": "contact-form",
-      "disabled": true,
-      "settings": {}
+      "name": "Client Svc — Contact",
+      "settings": {
+        "head_eyebrow": "Client Services",
+        "head_title": "How can we help?",
+        "head_subheading": "Shipping, returns, answers and contact — all in one place.",
+        "search_placeholder": "Search help articles…",
+        "track_text": "Already ordered?",
+        "track_link_label": "Track your order",
+        "track_url": "",
+        "contact_heading": "Contact Us",
+        "contact_intro": "We’re here to answer any question you may have — we reply within 24–48 hours.",
+        "contact_subjects": "Where’s my order?\nReturns\nCancel or edit order\nPersonalisation\nMarketing & PR\nOther",
+        "cside_chat_title": "Chat with us",
+        "whatsapp_label": "WhatsApp",
+        "whatsapp_number": "+971 58 567 5555",
+        "whatsapp_url": "",
+        "cside_call_title": "Call us",
+        "phone1": "+971 58 567 5555",
+        "phone2": "+971 4 225 2721",
+        "cside_email_title": "Email",
+        "email": "support@minimalist.ae",
+        "cside_post_title": "Post",
+        "post_address": "PO Box 83619,\nDubai, UAE"
+      }
     }
   },
   "order": [
     "main",
-    "form"
+    "contact_form_RYzLcW"
   ]
 }
